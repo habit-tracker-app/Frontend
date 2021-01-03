@@ -29,3 +29,28 @@ function changeStatusCall(id,status){
             }
         });
 }
+
+//add event listener for done 
+for(button of doneButtons){
+    button.addEventListener('click',function(){
+        let idDone = this.id.slice(5);
+        changeStatusCall(idDone,'done');
+    });
+}
+
+//adding event listener for not-done
+for(button of notDoneButtons){
+    button.addEventListener('click',function(){
+        let idNotDone = this.id.slice(9);
+        changeStatusCall(idNotDone,'not-done');
+    });
+}
+
+//adding event listener for null
+for(button of nullButtons){
+    button.addEventListener('click',function(){
+        let idNull = this.id.slice(5);
+        changeStatusCall(idNull,'null');
+    });
+}
+
