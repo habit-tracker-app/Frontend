@@ -54,3 +54,44 @@ for(button of nullButtons){
     });
 }
 
+
+//to delete the habit
+$('#delete-btn').click(function(){
+
+    //fetching all the checkbox
+    let allCheckbox = document.querySelectorAll('.checkbox-container input');
+    let checkedItem = [];
+    //collecting id of all checkbox
+    for(item of allCheckbox){
+        if(item.checked){
+            checkedItem.push(item.id);
+        }
+    }
+    //to ask the user before delete
+    const isDelete = confirm("Do you really want to delete records?");
+    if(isDelete==true){
+
+        $.ajax({
+            type:'get',
+            url:'/users/delete',
+            data:{info:checkedItem},
+            success:function(){
+                for(id of checkedItem){
+                    $(`#item-${id}`).remove(); 
+                }
+                //to show the notification when deleted
+                new Noty({
+                    theme: 'relax',
+                    text: "Habit Deleted Successfully",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();
+            },error: function(error){
+                console.log(error.responseText);
+            }
+        });
+    }
+    
+});
